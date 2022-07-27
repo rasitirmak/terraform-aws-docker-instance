@@ -1,33 +1,3 @@
-resource "aws_security_group" "tf-sec-gr" {
-  name = "${var.tag}-terraform-sec-grp"
-  tags = {
-    Name = var.tag
-  }
-
-  dynamic "ingress" {
-    for_each = var.docker-instance-ports
-    iterator = port
-    content {
-      from_port = port.value
-      to_port = port.value
-      protocol = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
-    }
-  }
-
-  egress {
-    from_port =0
-    protocol = "-1"
-    to_port =0
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-
-
-
-
-9:27
 data "aws_ami" "amazon-linux-2" {
   owners      = ["amazon"]
   most_recent = true
